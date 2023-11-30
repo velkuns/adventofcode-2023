@@ -1,6 +1,19 @@
+#~ Composer
 composer.phar
+composer.lock
 /vendor/
 
-# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
-# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
-# composer.lock
+#~ Tests
+/build/*
+.phpunit.cache/
+
+#~ Misc
+.idea
+
+#~ Application
+/var/*
+!/var/.gitkeep
+
+#~ Overridden condigs
+phpstan.neon
+phpunit.xml

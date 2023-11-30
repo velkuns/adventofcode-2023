@@ -1,0 +1,47 @@
+{
+  "name": "velkuns/adventofcode",
+  "description": "CLI Application for adventofcode.com challenges",
+  "type": "project",
+  "minimum-stability": "stable",
+  "license": "MIT",
+
+  "authors": [
+    {
+      "name": "Romain Cottard",
+      "role": "Developer"
+    }
+  ],
+
+  "autoload": {
+    "psr-4": {
+      "Application\\": "./src",
+      "Application\\Script\\": "./scripts"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Application\\Tests\\Unit\\": "./tests/unit",
+      "Application\\Tests\\Integration\\": "./tests/integration"
+    }
+  },
+
+  "require": {
+    "php": "8.2.*||8.3.*",
+    "ext-ctype": "*",
+    "ext-json":"*",
+
+    "eureka/kernel-console": "^6.0",
+    "eureka/component-console": "^6.1",
+
+    "velkuns/math": "^1.0",
+    "velkuns/pipeline": "^0.1"
+  },
+
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.40.0",
+    "phpunit/phpcov": "^9.0.2",
+    "phpunit/phpunit": "^10.4.2",
+    "phpstan/phpstan": "^1.10.46",
+    "phpstan/phpstan-phpunit": "^1.3.15"
+  }
+}

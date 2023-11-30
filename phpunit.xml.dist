@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd"
+        backupGlobals="true"
+        colors="true"
+        displayDetailsOnTestsThatTriggerErrors="true"
+        displayDetailsOnTestsThatTriggerWarnings="true"
+        displayDetailsOnTestsThatTriggerNotices="true"
+        displayDetailsOnTestsThatTriggerDeprecations="true"
+        displayDetailsOnSkippedTests="true"
+        displayDetailsOnIncompleteTests="true"
+        failOnEmptyTestSuite="false"
+        failOnIncomplete="true"
+        failOnRisky="true"
+        failOnWarning="true"
+        processIsolation="false"
+        stopOnError="false"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        stopOnRisky="false"
+        timeoutForSmallTests="1"
+        timeoutForMediumTests="10"
+        timeoutForLargeTests="60"
+        cacheDirectory="build/.phpunit.cache"
+        backupStaticProperties="false"
+        requireCoverageMetadata="false">
+  <php>
+    <ini name="error_reporting" value="E_ALL"/>
+  </php>
+
+  <source>
+    <include>
+      <directory>./src</directory>
+    </include>
+  </source>
+
+  <testsuites>
+    <testsuite name="unit">
+      <directory>./tests/unit</directory>
+    </testsuite>
+    <testsuite name="integration">
+      <directory>./tests/integration</directory>
+    </testsuite>
+  </testsuites>
+
+</phpunit>

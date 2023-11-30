@@ -1,0 +1,4 @@
+# Services Yaml file
+parameters:
+  app.name:    'Advent Of Code CLI App'
+  app.version: '1.0.0'

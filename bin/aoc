@@ -1,0 +1,43 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * Copyright (c) Romain Cottard
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+use Eureka\Kernel\Console\Application\Application;
+use Eureka\Kernel\Console\Kernel;
+use Lcobucci\Clock\SystemClock;
+use Psr\Container\NotFoundExceptionInterface;
+
+//~ Define Loader & add main classes for config
+require_once __DIR__ . '/../vendor/autoload.php';
+
+try {
+
+    $root   = (string) realpath(__DIR__ . '/..');
+    $kernel = new Kernel($root, 'dev', true);
+
+    $console = (new Application(SystemClock::fromUTC(), $argv, container: $kernel->getContainer()))
+        ->setBaseNamespaces([
+                'Application\Script',
+                'Eureka\Component',
+        ])
+        //->setLogger()
+    ;
+
+    $console->before();
+    $console->run();
+    $console->after();
+    $console->terminate();
+
+} catch (NotFoundExceptionInterface $exception) {
+    echo 'Exception: ' . $exception->getMessage() . PHP_EOL;
+    exit(1);
+} catch (\Throwable $exception) {
+    echo 'Exception[' . $exception::class . ']: ' . $exception->getMessage() . PHP_EOL;
+    exit(1);
+}
