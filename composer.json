@@ -1,6 +1,6 @@
 {
-  "name": "velkuns/adventofcode",
-  "description": "CLI Application for adventofcode.com challenges",
+  "name": "velkuns/adventofcode-2023",
+  "description": "Year 2023 - CLI Application for adventofcode.com challenges",
   "type": "project",
   "minimum-stability": "stable",
   "license": "MIT",
