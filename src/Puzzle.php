@@ -42,7 +42,7 @@ abstract class Puzzle implements PuzzleInterface
         if ($doSolveFunctional) {
             return (string) ($part === 1 ? $this->partOneFunctional($inputs) : $this->partTwoFunctional($inputs));
         } else {
-            return (string) ($part === 2 ? $this->partOne($inputs) : $this->partTwo($inputs));
+            return (string) ($part === 1 ? $this->partOne($inputs) : $this->partTwo($inputs));
         }
     }
 

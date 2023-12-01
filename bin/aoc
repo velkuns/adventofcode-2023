@@ -39,5 +39,6 @@ try {
     exit(1);
 } catch (\Throwable $exception) {
     echo 'Exception[' . $exception::class . ']: ' . $exception->getMessage() . PHP_EOL;
+    echo $exception->getTraceAsString() . "\n";
     exit(1);
 }
