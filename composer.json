@@ -40,8 +40,8 @@
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.40.0",
     "phpunit/phpcov": "^9.0.2",
-    "phpunit/phpunit": "^10.5.0",
-    "phpstan/phpstan": "^1.10.46",
+    "phpunit/phpunit": "^10.5.1",
+    "phpstan/phpstan": "^1.10.47",
     "phpstan/phpstan-phpunit": "^1.3.15"
   }
 }
