@@ -90,9 +90,11 @@ class Solve extends AbstractScript
         /** @var PuzzleInterface $solver */
         $solver = new $class();
 
+        $this->output()->writeln('');
         $this->solveExamples($day, $solver);
 
         $this->solvePuzzle($day, $solver);
+        $this->output()->writeln('');
 
     }
 
@@ -114,8 +116,8 @@ class Solve extends AbstractScript
         $red    = (new Style())->color(Bit8StandardColor::Red);
 
         $doSolveFunctional = (bool) $this->options()->value('f', 'functional');
-        $functionalSuffix  = $doSolveFunctional ? ' (FUNCTIONAL)' : '';
-        $line              = \str_repeat('-', 42);
+        $functionalSuffix  = $doSolveFunctional ? '(FUNCTIONAL)' : '';
+        $line              = \str_repeat('-', 22);
 
         /** @var array<string> $inputs */
         $inputs = (array) \file($file);
@@ -125,7 +127,7 @@ class Solve extends AbstractScript
         $this->output()->writeln($white->apply("$line OUTPUT $functionalSuffix $line"));
 
         $timeOnePart   = -\microtime(true);
-        $solvePartOne  = $solver->solve(1, $inputs, $doSolveFunctional);
+        $solvePartOne  = \str_pad($solver->solve(1, $inputs, $doSolveFunctional), 10);
         $timePartOne   = '[' . \round($timeOnePart + \microtime(true), 5) . 's]';
         $memoryPartOne = '[' . \round(\memory_get_peak_usage() / 1024 / 1024, 1) . 'MB]';
         $this->output()->writeln(
@@ -136,7 +138,7 @@ class Solve extends AbstractScript
         );
 
         $timePartTwo   = -microtime(true);
-        $solvePartTwo  = $solver->solve(2, $inputs, $doSolveFunctional);
+        $solvePartTwo  = \str_pad($solver->solve(2, $inputs, $doSolveFunctional), 10);
         $timePartTwo   = '[' . round($timePartTwo + microtime(true), 5) . 's]';
         $memoryPartTwo = '[' . round(memory_get_peak_usage() / 1024 / 1024, 1) . 'MB]';
 
@@ -155,8 +157,8 @@ class Solve extends AbstractScript
         $cyan   = (new Style())->color(Bit8StandardColor::Cyan);
 
         $doSolveFunctional = (bool) $this->options()->value('f', 'functional');
-        $functionalSuffix  = $doSolveFunctional ? ' (FUNCTIONAL)' : '';
-        $line              = str_repeat('-', 42);
+        $functionalSuffix  = $doSolveFunctional ? '(FUNCTIONAL)' : '';
+        $line              = str_repeat('-', 21);
 
         $this->output()->writeln($white->apply("$line EXAMPLES $functionalSuffix $line"));
         foreach ([1, 2] as $part) {
