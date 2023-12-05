@@ -27,6 +27,8 @@ class PuzzleDay5 extends Puzzle
         $seeds = $this->parseSeeds($inputs);
         $maps  = $this->parseMaps($inputs);
 
+        $rangesMapMerged = $this->mergeMaps($maps);
+
         //~ Iterate on each seed and map seed to location
         $seedsToLocation = [];
         foreach ($seeds as $seed) {
@@ -100,6 +102,24 @@ class PuzzleDay5 extends Puzzle
         } while ($line !== null);
 
         return $maps;
+    }
+
+    /**
+     * @param non-empty-array<string, RangesMap> $maps
+     * @return RangesMap
+     */
+    private function mergeMaps(array $maps): RangesMap
+    {
+        //~ take first map
+        $rangesMapA = array_shift($maps);
+        $rangesMapB = array_shift($maps);
+
+        $rangesMapMerged = $rangesMapA->merge($rangesMapB);
+        $rangesMapMerged->sort();
+
+        var_export($rangesMapMerged);
+
+        return $rangesMapMerged;
     }
 
     /**
