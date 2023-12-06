@@ -12,7 +12,12 @@ declare(strict_types=1);
 namespace Application\Service;
 
 use function array_map;
+use function array_filter;
+use function array_values;
+use function explode;
 use function intval;
+use function strlen;
+use function substr;
 
 class Parser
 {
@@ -23,7 +28,7 @@ class Parser
         string $string,
         string $separator = ' ',
         string $prefix = '',
-        string $suffix = ''
+        string $suffix = '',
     ): array {
         if (!empty($prefix)) {
             $string = substr($string, strlen($prefix));
@@ -33,7 +38,7 @@ class Parser
             $string = substr($string, 0, -strlen($suffix));
         }
 
-        return explode($separator, $string);
+        return array_values(array_filter(explode($separator, $string), fn (string $string) => $string !== ''));
     }
 
     /**
