@@ -38,7 +38,11 @@ class Parser
             $string = substr($string, 0, -strlen($suffix));
         }
 
-        return array_values(array_filter(explode($separator, $string), fn (string $string) => $string !== ''));
+        if ($separator === '') {
+            throw new \UnexpectedValueException('Separator cannot be empty!');
+        }
+
+        return array_values(array_filter(explode($separator, $string), fn(string $string) => $string !== ''));
     }
 
     /**
