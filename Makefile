@@ -18,7 +18,7 @@ install:
 update:
 	$(call header,Composer Update)
 	@${COMPOSER_BIN} update
-	@${COMPOSER_BIN} bump --dev-only
+	@${COMPOSER_BIN} bump
 
 composer.lock: install
 

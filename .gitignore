@@ -17,3 +17,6 @@ composer.lock
 #~ Overridden condigs
 phpstan.neon
 phpunit.xml
+
+#~ Original personal input data
+inputs.txt
