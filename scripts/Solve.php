@@ -88,7 +88,7 @@ class Solve extends AbstractScript
         $class = "\Application\Day\PuzzleDay$day";
 
         /** @var PuzzleInterface $solver */
-        $solver = new $class();
+        $solver = new $class($this->options());
 
         $this->output()->writeln('');
         $this->solveExamples($day, $solver);

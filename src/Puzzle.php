@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Application;
 
+use Eureka\Component\Console\Option\Options;
+
 abstract class Puzzle implements PuzzleInterface
 {
     /**
@@ -22,6 +24,8 @@ abstract class Puzzle implements PuzzleInterface
      * @param list<string> $inputs
      */
     abstract protected function partTwo(array $inputs): string|int|float;
+
+    public function __construct(private readonly Options $options) {}
 
     /**
      * @return array{1: array<int, array<string>>, 2: array<int, array<string>>}
@@ -60,5 +64,10 @@ abstract class Puzzle implements PuzzleInterface
     protected function partTwoFunctional(array $inputs): string|int|float
     {
         return 0;
+    }
+
+    protected function options(): Options
+    {
+        return $this->options;
     }
 }
