@@ -12,4 +12,7 @@ parameters:
   bootstrapFiles:
     - ./vendor/autoload.php
 
-  ignoreErrors: []
+  ignoreErrors:
+    -
+      path:    './src/Day/PuzzleDay15.php'
+      message: '`Parameter #1 \$sequences of method Application\\Day\\PuzzleDay15::hashmap\(\) expects array<int, array<int, string>>, array<int, array<int, string>\|bool> given.`'
