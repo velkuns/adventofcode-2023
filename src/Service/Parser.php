@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Application\Service;
 
+use Velkuns\Math\Matrix;
 use function array_map;
 use function array_filter;
 use function array_values;
@@ -43,6 +44,18 @@ class Parser
         }
 
         return array_values(array_filter(explode($separator, $string), fn(string $string) => $string !== ''));
+    }
+
+    /**
+     * @template T of Matrix
+     *
+     * @param list<string> $inputs
+     * @param class-string<T> $class
+     * @return T
+     */
+    public static function toMatrix(array $inputs, string $class = Matrix::class)
+    {
+        return (new $class(array_map(str_split(...), $inputs)))->transpose();
     }
 
     /**
