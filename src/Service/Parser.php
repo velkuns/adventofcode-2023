@@ -53,9 +53,17 @@ class Parser
      * @param class-string<T> $class
      * @return T
      */
-    public static function toMatrix(array $inputs, string $class = Matrix::class)
+    public static function toMatrix(array $inputs, string $class = Matrix::class, bool $forceInt = false)
     {
-        return (new $class(array_map(str_split(...), $inputs)))->transpose();
+        $inputs = array_map(str_split(...), $inputs);
+
+        if ($forceInt) {
+            foreach ($inputs as $index => $line) {
+                $inputs[$index] = array_map(intval(...), $line);
+            }
+        }
+
+        return (new $class($inputs))->transpose();
     }
 
     /**
