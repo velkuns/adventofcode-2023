@@ -24,34 +24,39 @@ enum PathDirection: string
         Direction::Left->value => [
             //~ To
             Direction::Left->value => self::MoveForward,
-            Direction::Up->value   => self::TurnRight,
-            Direction::Down->value => self::TurnLeft,
+            Direction::Up->value   => self::TurnLeft,
+            Direction::Down->value => self::TurnRight,
         ],
         //~ From Right direction
         Direction::Right->value => [
             //~ To
             Direction::Right->value => self::MoveForward,
-            Direction::Up->value    => self::TurnLeft,
-            Direction::Down->value  => self::TurnRight,
+            Direction::Up->value    => self::TurnRight,
+            Direction::Down->value  => self::TurnLeft,
         ],
         //~ From Up direction
         Direction::Up->value => [
             //~ To
             Direction::Up->value    => self::MoveForward,
-            Direction::Left->value  => self::TurnLeft,
-            Direction::Right->value => self::TurnRight,
+            Direction::Left->value  => self::TurnRight,
+            Direction::Right->value => self::TurnLeft,
         ],
         //~ From Up direction
         Direction::Down->value => [
             //~ To
             Direction::Down->value    => self::MoveForward,
-            Direction::Left->value  => self::TurnRight,
-            Direction::Right->value => self::TurnLeft,
+            Direction::Left->value  => self::TurnLeft,
+            Direction::Right->value => self::TurnRight,
         ],
     ];
 
-    public static function move(Direction $from, Direction $to): PathDirection
+    public static function move(Direction $from, Direction $to, bool $invertedUpDown = true): PathDirection
     {
+        if ($invertedUpDown) {
+            $from = self::invertUpDown($from);
+            $to   = self::invertUpDown($to);
+        }
+
         return self::MapDirectionMove[$from->value][$to->value];
     }
 
@@ -63,6 +68,15 @@ enum PathDirection: string
             $from === Direction::Down || $to === Direction::Down => Direction::Down,
             $from === Direction::Left || $to === Direction::Left => Direction::Left,
             $from === Direction::Right || $to === Direction::Right => Direction::Right,
+        };
+    }
+
+    private static function invertUpDown(Direction $direction): Direction
+    {
+        return match ($direction) {
+            Direction::Up => Direction::Down,
+            Direction::Down => Direction::Up,
+            default => $direction,
         };
     }
 }
