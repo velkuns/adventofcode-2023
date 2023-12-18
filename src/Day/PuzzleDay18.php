@@ -45,6 +45,10 @@ class PuzzleDay18 extends Puzzle
         return $this->calculateArea($inputs);
     }
 
+    /**
+     * @param list<string> $inputs
+     * @return list<array{0: Direction, 1: int}>
+     */
     private function parseInput(int $part, array $inputs): array
     {
         return array_map(
@@ -57,13 +61,16 @@ class PuzzleDay18 extends Puzzle
                 $hex = trim($hex, '()#');
                 return [
                     self::DIRECTIONS[substr($hex, 5)], // direction
-                    hexdec(substr($hex, 0, 5))
+                    (int) hexdec(substr($hex, 0, 5))
                 ];
             },
             $inputs
         );
     }
 
+    /**
+     * @param list<array{0: Direction, 1: int}> $inputs
+     */
     private function calculateArea(array $inputs): int
     {
 
@@ -82,7 +89,6 @@ class PuzzleDay18 extends Puzzle
         foreach ($inputs as [$direction, $length,]) {
             //~ Get next point, center on the block
             $pointB = $pointA->translate(Vector2DDir::fromDirection($direction, $length));
-            //echo "$pointA => $pointB | Direction: $direction->value\n";
 
             //~ calculate value for shoelace formula
             $shoelace += ($pointA->getX() * $pointB->getY() - $pointA->getY() * $pointB->getX());
