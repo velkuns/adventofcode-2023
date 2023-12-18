@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Application\Day;
 
 use Application\Puzzle;
-use Application\Queue\LowerPriorityQueue;
 use Application\Service\Map;
 use Application\Service\Parser;
 use Velkuns\Math\_2D\Point2D;
@@ -20,7 +19,7 @@ use Velkuns\Math\_2D\Point2D;
 class PuzzleDay17 extends Puzzle
 {
     /**
-     * 875 to high :(
+     * 859
      * @param list<string> $inputs
      */
     protected function partOne(array $inputs): int
@@ -30,14 +29,20 @@ class PuzzleDay17 extends Puzzle
         $start = new Point2D($map->getMinX(), $map->getMinY());
         $end   = new Point2D($map->getMaxX(), $map->getMaxY());
 
-        return $map->findColdestPath($start, $end);
+        return $map->findColdestPath($start, $end, 1, 3);
     }
 
     /**
+     * 1018 to low :(
      * @param list<string> $inputs
      */
     protected function partTwo(array $inputs): int
     {
-        return 0;
+        $map = Parser::toMatrix($inputs, Map::class, true);
+
+        $start = new Point2D($map->getMinX(), $map->getMinY());
+        $end   = new Point2D($map->getMaxX(), $map->getMaxY());
+
+        return $map->findColdestPath($start, $end, 4, 10);
     }
 }

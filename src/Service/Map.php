@@ -20,9 +20,6 @@ use Velkuns\Math\Matrix;
 
 class Map extends Matrix
 {
-    /** @var array<string, Crucible> $path  */
-    private array $path = [];
-
     /** @var array<string, int> $visited */
     private array $visited = [];
 
@@ -33,24 +30,24 @@ class Map extends Matrix
         Direction::Right,
     ];
 
-    public function findColdestPath(Point2D $start, Point2D $end): int
+    public function findColdestPath(Point2D $start, Point2D $end, int $minMoveInDir, int $maxMoveInDir): int
     {
-        /** @var LowerPriorityQueue<Crucible> $queue */
+        /** @var LowerPriorityQueue<int, Crucible> $queue */
         $queue = new LowerPriorityQueue();
 
-        $queue->insert(new Crucible($start, null, null, 0, 0), 0);
+        $queue->insert(new Crucible($start, null, null, $minMoveInDir, 0), 0);
 
         while (!$queue->isEmpty()) {
             /** @var Crucible $crucible */
             $crucible = $queue->extract();
 
             //~ Crucible reach the end ? So return heat loss value !
-            if ($this->isEnd($crucible->position, $end)) {
+            if ($this->isEnd($crucible->position, $end) && $crucible->move >= $minMoveInDir) {
                 return $crucible->heatLoss;
             }
 
             //~ Enqueue next position of crucible
-            $queue = $this->enqueueNextPositions($queue, $crucible);
+            $queue = $this->enqueueNextPositions($queue, $crucible, $minMoveInDir, $maxMoveInDir);
         }
 
         throw new \UnexpectedValueException('End of map not reached!');
@@ -62,50 +59,50 @@ class Map extends Matrix
     }
 
     /**
-     * @param LowerPriorityQueue<Crucible> $queue
-     * @return LowerPriorityQueue<Crucible>
+     * @param LowerPriorityQueue<int, Crucible> $queue
+     * @return LowerPriorityQueue<int, Crucible>
      */
     private function enqueueNextPositions(
         LowerPriorityQueue $queue,
-        Crucible $crucible
+        Crucible $crucible,
+        int $minMoveInDir,
+        int $maxMoveInDir
     ): LowerPriorityQueue {
-        static $nbTested = 0, $nbSkippedBackEmptyOrMoveThree = 0, $nbSkippedHigher = 0;
-
         //~ Enqueue 2 or 3 next direction (no backward, no more than 3 move in same direction)
         foreach (self::DIRECTIONS as $newDirection) {
             $nextPosition = $crucible->position->translate(Vector2DDir::fromDirection($newDirection, invertY: true));
             /** @var int|null $tile */
-            $tile = $this->get($nextPosition);
+            $tile         = $this->get($nextPosition);
+            $nextHeatLoss = (int) $tile + $crucible->heatLoss;
+            $nextMove     = $crucible->direction === $newDirection ? $crucible->move + 1 : 1;
 
-            //~ Is backward direction or already moved three time in that direction
-            $alreadyMoveThreeTime = $newDirection === $crucible->direction && $crucible->move === 3;
+            $hasMovedMaxTimesInDir = $newDirection === $crucible->direction && $crucible->move === $maxMoveInDir;
+            $hasMovedMinTimesInDir = $crucible->move >= $minMoveInDir || $newDirection === $crucible->direction;
+
+            //~ Is backward direction, the next position is out of map,
+            //~ not have moved min times in same direction or moved max times in same direction, skip next position
             if (
                 empty($tile) ||
                 $this->isBackwardDirection($crucible->direction, $newDirection) ||
-                $alreadyMoveThreeTime
+                $hasMovedMaxTimesInDir ||
+                !$hasMovedMinTimesInDir
             ) {
-                $nbSkippedBackEmptyOrMoveThree++;
                 continue;
             }
 
-            $nextHeatLoss = (int) $tile + $crucible->heatLoss;
-            $nextMove     = $crucible->direction === $newDirection ? $crucible->move + 1 : 1;
             $nextCrucible = new Crucible($nextPosition, $crucible->position, $newDirection, $nextMove, $nextHeatLoss);
 
             //~ Get visited tile and compare registered heat loss (if exist)
             $visitedHeatLoss = ($this->visited[(string) $nextCrucible] ?? PHP_INT_MAX);
 
             //~ Visited position already have lower heat loss, so skip it and continue
-            if ($visitedHeatLoss < $nextHeatLoss) {
-                $nbSkippedHigher++;
+            if ($nextHeatLoss >= $visitedHeatLoss) {
                 continue;
             }
 
             $this->visited[(string) $nextCrucible] = $nextHeatLoss;
-            $this->path[(string) $nextPosition]    = $crucible;
-            $nbTested++;
+
             $queue->insert($nextCrucible, $nextHeatLoss);
-            echo "Nb tested = $nbTested, Nb skipped- = $nbSkippedBackEmptyOrMoveThree, Nb skipped+ = $nbSkippedHigher                     \r";
         }
 
         return $queue;

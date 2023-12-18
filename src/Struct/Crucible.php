@@ -14,18 +14,18 @@ namespace Application\Struct;
 use Velkuns\Math\_2D\Direction;
 use Velkuns\Math\_2D\Point2D;
 
-class Crucible implements \Stringable
+readonly class Crucible implements \Stringable
 {
     public function __construct(
-        public readonly Point2D $position,
-        public readonly Point2D|null $from,
-        public readonly Direction|null $direction,
-        public readonly int $move,
-        public readonly int $heatLoss
+        public Point2D $position,
+        public Point2D|null $from,
+        public Direction|null $direction,
+        public int $move,
+        public int $heatLoss
     ) {}
 
     public function __toString(): string
     {
-        return "$this->position|$this->move";
+        return "$this->position|{$this->direction?->value}|$this->move";
     }
 }

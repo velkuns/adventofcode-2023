@@ -12,7 +12,9 @@ declare(strict_types=1);
 namespace Application\Queue;
 
 /**
- * @template T
+ * @template TPriority
+ * @template TValue
+ * @extends \SplPriorityQueue<TPriority, TValue>
  */
 class LowerPriorityQueue extends \SplPriorityQueue
 {

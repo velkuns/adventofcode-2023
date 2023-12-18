@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Application\Service;
 
 use Velkuns\Math\Matrix;
+
 use function array_map;
 use function array_filter;
 use function array_values;
