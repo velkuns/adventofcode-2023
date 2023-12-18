@@ -42,6 +42,16 @@ class Solve extends AbstractScript
                 )
                 ->add(
                     new Option(
+                        shortName:   'p',
+                        longName:    'pad',
+                        description: 'Pad value for better render',
+                        mandatory:   false,
+                        hasArgument: true,
+                        default:     10,
+                    )
+                )
+                ->add(
+                    new Option(
                         shortName:   'e',
                         longName:    'example',
                         description: 'Example Only',
@@ -127,7 +137,7 @@ class Solve extends AbstractScript
         $this->output()->writeln($white->apply("$line OUTPUT $functionalSuffix $line"));
 
         $timeOnePart   = -\microtime(true);
-        $solvePartOne  = \str_pad($solver->solve(1, $inputs, $doSolveFunctional), 10);
+        $solvePartOne  = \str_pad($solver->solve(1, $inputs, $doSolveFunctional), (int) $this->options()->value('pad'));
         $timePartOne   = '[' . \round($timeOnePart + \microtime(true), 5) . 's]';
         $memoryPartOne = '[' . \round(\memory_get_peak_usage() / 1024 / 1024, 1) . 'MB]';
         $this->output()->writeln(
@@ -138,7 +148,7 @@ class Solve extends AbstractScript
         );
 
         $timePartTwo   = -microtime(true);
-        $solvePartTwo  = \str_pad($solver->solve(2, $inputs, $doSolveFunctional), 10);
+        $solvePartTwo  = \str_pad($solver->solve(2, $inputs, $doSolveFunctional), (int) $this->options()->value('pad'));
         $timePartTwo   = '[' . round($timePartTwo + microtime(true), 5) . 's]';
         $memoryPartTwo = '[' . round(memory_get_peak_usage() / 1024 / 1024, 1) . 'MB]';
 
