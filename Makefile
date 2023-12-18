@@ -52,9 +52,9 @@ phpcbf: vendor/bin/phpcbf
 	$(call header,Fixing Code Style)
 	@./vendor/bin/php-cs-fixer fix -v
 
-php81compatibility: vendor/bin/phpstan build/reports/phpstan
-	$(call header,Checking PHP 8.1 compatibility)
-	@XDEBUG_MODE=off ./vendor/bin/phpstan analyse --configuration=./ci/php81-compatibility.neon --error-format=checkstyle > ./build/reports/phpstan/php81-compatibility.xml
+php82compatibility: vendor/bin/phpstan build/reports/phpstan
+	$(call header,Checking PHP 8.2 compatibility)
+	@XDEBUG_MODE=off ./vendor/bin/phpstan analyse --configuration=./ci/php82-compatibility.neon --error-format=checkstyle > ./build/reports/phpstan/php82-compatibility.xml
 
 php83compatibility: vendor/bin/phpstan build/reports/phpstan
 	$(call header,Checking PHP 8.3 compatibility)
@@ -96,4 +96,4 @@ build:
 run:
 	$(call header,Run Docker image)
 	docker run --name adventofcode -t adventofcode:2023
-ci: clean validate deps install phpcs tests integration php81compatibility php83compatibility analyze
+ci: clean validate deps install phpcs tests integration php82compatibility php83compatibility analyze

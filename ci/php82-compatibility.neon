@@ -3,7 +3,7 @@ includes:
   - ./../vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
-  phpVersion: 80100 # PHP 8.1 - Current minimal version supported
+  phpVersion: 80200 # PHP 8.2 - Current minimal version supported
   level: 0
   paths:
     - ./../src
