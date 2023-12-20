@@ -59,6 +59,13 @@ class Solve extends AbstractScript
                 )
                 ->add(
                     new Option(
+                        shortName:   'n',
+                        longName:    'no-example',
+                        description: 'Part only',
+                    )
+                )
+                ->add(
+                    new Option(
                         shortName:   'f',
                         longName:    'functional',
                         description: 'Activate Solve in functional programming style',
@@ -162,6 +169,10 @@ class Solve extends AbstractScript
 
     private function solveExamples(int $day, PuzzleInterface $solver): void
     {
+        if ($this->options()->value('n', 'no-example') === true) {
+            return;
+        }
+
         $white  = (new Style($this->options()))->bold();
         $yellow = (new Style())->color(Bit8StandardColor::Yellow);
         $cyan   = (new Style())->color(Bit8StandardColor::Cyan);

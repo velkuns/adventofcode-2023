@@ -33,7 +33,7 @@
     "eureka/kernel-console": "^6.0",
     "eureka/component-console": "^6.1",
 
-    "velkuns/math": "^1.2",
+    "velkuns/math": "^1.3",
     "velkuns/pipeline": "^0.2"
   },
 
