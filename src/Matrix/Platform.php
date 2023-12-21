@@ -26,10 +26,10 @@ class Platform extends Matrix
     public const EAST = 'E';
 
 
-    /** @var Point2D $roundedRocks */
+    /** @var Point2D[] $roundedRocks */
     private array $roundedRocks = [];
 
-    /** @var Point2D $cubeRocks */
+    /** @var Point2D[] $cubeRocks */
     private array $cubeRocks = [];
 
     /** @var array<int, array<int>> $stopPoints */
@@ -106,7 +106,7 @@ class Platform extends Matrix
     }
 
     /**
-     * @return Point2D
+     * @return Point2D[]
      */
     private function sortRoundedRockFor(string $direction): array
     {

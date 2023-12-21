@@ -28,36 +28,6 @@ class Garden extends Matrix
         Direction::Right,
     ];
 
-    /** @var array{
-     *     even: array{
-     *         left: array{pos: Point2D|null, steps: int},
-     *         right: array{pos: Point2D|null, steps: int},
-     *         top: array{pos: Point2D|null, steps: int},
-     *         bottom: array{pos: Point2D|null, steps: int},
-     *     },
-     *     odd: array{
-     *         left: array{pos: Point2D|null, steps: int},
-     *         right: array{pos: Point2D|null, steps: int},
-     *         top: array{pos: Point2D|null, steps: int},
-     *         bottom: array{pos: Point2D|null, steps: int},
-     *     }
-     * } $edges
-     */
-    private array $edges = [
-        'even' => [
-            'left'   => ['pos' => null, 'steps' => PHP_INT_MAX],
-            'right'  => ['pos' => null, 'steps' => PHP_INT_MAX],
-            'top'    => ['pos' => null, 'steps' => PHP_INT_MAX],
-            'bottom' => ['pos' => null, 'steps' => PHP_INT_MAX],
-        ],
-        'odd' => [
-            'left'   => ['pos' => null, 'steps' => PHP_INT_MAX],
-            'right'  => ['pos' => null, 'steps' => PHP_INT_MAX],
-            'top'    => ['pos' => null, 'steps' => PHP_INT_MAX],
-            'bottom' => ['pos' => null, 'steps' => PHP_INT_MAX],
-        ],
-    ];
-
     public function computeAllShortestPaths(Point2D $start): void
     {
         $currentStep = 0;

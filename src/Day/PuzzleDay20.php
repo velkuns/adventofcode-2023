@@ -109,7 +109,7 @@ class PuzzleDay20 extends Puzzle
 
     /**
      * @param list<string> $inputs
-     * @return non-empty-array<string, Module>
+     * @return array<string, Module>
      */
     private function parseModules(array $inputs): array
     {
