@@ -87,53 +87,6 @@ class Garden extends Matrix
                 }
             }
         }
-
-        $this->computeMinStepsToReachEdges();
-    }
-
-    private function computeMinStepsToReachEdges(): void
-    {
-        $edges = [
-            'left'   => [
-                ['even' => $this->getMinX(), 'odd' => $this->getMinX() + 1],
-                $this->getMinY(),
-                $this->getMaxY(),
-            ],
-            'right'  => [
-                ['even' => $this->getMaxX(), 'odd' => $this->getMaxX() - 1],
-                $this->getMinY(),
-                $this->getMaxY(),
-            ],
-            'top'    => [
-                ['even' => $this->getMinY(), 'odd' => $this->getMinY() + 1],
-                $this->getMinX(),
-                $this->getMaxX(),
-            ],
-            'bottom' => [
-                ['even' => $this->getMaxY(), 'odd' => $this->getMaxY() - 1],
-                $this->getMinX(),
-                $this->getMaxX(),
-            ],
-        ];
-
-        foreach ($edges as $edge => [$types, $min, $max]) {
-            for ($v = $min; $v <= $max; $v++) {
-                foreach ($types as $type => $w) {
-                    $x = in_array($edge, ['left', 'right']) ? $w : $v;
-                    $y = in_array($edge, ['top', 'bottom']) ? $w : $v;
-                    $pos = new Point2D($x, $y);
-                    if (!isset($this->nbStepsForPositions[(string) $pos])) {
-                        continue;
-                    }
-
-                    $steps = $this->nbStepsForPositions[(string) $pos];
-                    if ($steps < $this->edges[$type][$edge]['steps']) {
-                        $this->edges[$type][$edge]['pos']   = $pos;
-                        $this->edges[$type][$edge]['steps'] = $steps;
-                    }
-                }
-            }
-        }
     }
 
     public function countTilesReachableInMaxSteps(int $maxSteps, bool $infinite): int
