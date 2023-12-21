@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Service;
+namespace Application\Matrix;
 
 use Velkuns\Math\_2D\Point2D;
 use Velkuns\Math\Matrix;
@@ -26,10 +26,10 @@ class Platform extends Matrix
     public const EAST = 'E';
 
 
-    /** @var list<Point2D> $roundedRocks */
+    /** @var Point2D $roundedRocks */
     private array $roundedRocks = [];
 
-    /** @var list<Point2D> $cubeRocks */
+    /** @var Point2D $cubeRocks */
     private array $cubeRocks = [];
 
     /** @var array<int, array<int>> $stopPoints */
@@ -106,7 +106,7 @@ class Platform extends Matrix
     }
 
     /**
-     * @return list<Point2D>
+     * @return Point2D
      */
     private function sortRoundedRockFor(string $direction): array
     {

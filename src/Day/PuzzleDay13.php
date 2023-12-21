@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Application\Day;
 
+use Application\Matrix\Pattern;
 use Application\Puzzle;
 use Application\Service\Cache;
-use Application\Service\Pattern;
 use Velkuns\Math\_2D\Point2D;
 
 class PuzzleDay13 extends Puzzle
@@ -94,7 +94,7 @@ class PuzzleDay13 extends Puzzle
 
     /**
      * @param list<string> $inputs
-     * @return list<Pattern>
+     * @return list<\Application\Matrix\Pattern>
      */
     private function parsePatterns(array $inputs): array
     {

@@ -12,8 +12,8 @@ declare(strict_types=1);
 namespace Application\Day;
 
 use Application\Enum\PathDirection;
+use Application\Matrix\Maze;
 use Application\Puzzle;
-use Application\Service\Maze;
 use Velkuns\Math\_2D\Direction;
 use Velkuns\Math\_2D\Point2D;
 
@@ -153,7 +153,7 @@ class PuzzleDay10 extends Puzzle
     }
 
     /**
-     * @param Maze $maze
+     * @param \Application\Matrix\Maze $maze
      * @param Direction $sideOfLoopThatIn
      * @param array<Point2D> $unexploredPositions
      * @param array<string, array{move: PathDirection, orientation: Direction}> $allPaths

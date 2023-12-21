@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Application\Day;
 
+use Application\Matrix\Universe;
 use Application\Puzzle;
-use Application\Service\Universe;
 use Velkuns\Math\_2D\Point2D;
 
 class PuzzleDay11 extends Puzzle

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Application\Day;
 
+use Application\Matrix\Map;
 use Application\Puzzle;
-use Application\Service\Map;
 use Application\Service\Parser;
 use Velkuns\Math\_2D\Point2D;
 

@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Application\Service;
+namespace Application\Matrix;
 
 use Application\Queue\LowerPriorityQueue;
 use Application\Struct\Crucible;

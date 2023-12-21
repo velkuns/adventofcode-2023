@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Application\Day;
 
+use Application\Matrix\Platform;
 use Application\Puzzle;
-use Application\Service\Platform;
 
 class PuzzleDay14 extends Puzzle
 {

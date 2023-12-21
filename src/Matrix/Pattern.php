@@ -9,8 +9,9 @@
 
 declare(strict_types=1);
 
-namespace Application\Service;
+namespace Application\Matrix;
 
+use Application\Service\Cache;
 use Velkuns\Math\Matrix;
 
 class Pattern extends Matrix

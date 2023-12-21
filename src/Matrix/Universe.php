@@ -9,13 +9,10 @@
 
 declare(strict_types=1);
 
-namespace Application\Service;
+namespace Application\Matrix;
 
-use Application\Enum\PathDirection;
-use Velkuns\Math\_2D\Direction;
 use Velkuns\Math\_2D\Point2D;
 use Velkuns\Math\_2D\Vector2D;
-use Velkuns\Math\_2D\Vector2DDir;
 use Velkuns\Math\Matrix;
 
 class Universe extends Matrix
