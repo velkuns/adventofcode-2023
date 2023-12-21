@@ -143,7 +143,7 @@ class Garden extends Matrix
         $evenTiles = array_filter($this->nbStepsForPositions, fn(int $nbSteps) => $nbSteps % 2 === 0);
         $oddTiles  = array_filter($this->nbStepsForPositions, fn(int $nbSteps) => $nbSteps % 2 === 1);
         $tiles     = $isEvenSteps ? $evenTiles : $oddTiles;
-        $needScale = $infinite && $maxSteps > ($this->width() + 1 / 2);
+        $needScale = $infinite && $this->needScale($maxSteps, $tiles, $isEvenSteps);
 
         if (!$needScale) {
             return count(array_filter($tiles, fn(int $nbSteps) => $nbSteps <= $maxSteps));
@@ -167,5 +167,70 @@ class Garden extends Matrix
         $approx = ($scaledDownTriangleArea * count($evenTiles)) * 4;
 
         return (int) $approx;
+
+//        echo "Triangle Length: $scaledDownTriangleLength\n";
+//        echo "Triangle Area: $scaledDownTriangleArea\n";
+//        echo "Scale done factor: $downScaleFactor\n";
+//        echo "Nb even tiles possible: " . count($evenTiles) . "\n";
+
+        return (int) $approx;
+    }
+
+    /**
+     * @param array<string, int> $tiles
+     */
+    private function needScale(int $maxSteps, array $tiles, bool $isEvenSteps): bool
+    {
+        return
+            $this->needScaleOnX($maxSteps, $tiles, $isEvenSteps) ||
+            $this->needScaleOnY($maxSteps, $tiles, $isEvenSteps)
+        ;
+    }
+
+    /**
+     * @param array<string, int> $tiles
+     */
+    private function needScaleOnX(int $maxSteps, array $tiles, bool $isEvenSteps): bool
+    {
+        $mod = $isEvenSteps ? 0 : 1;
+
+        foreach ([$this->getMinX(), $this->getMaxX()] as $x) {
+            for ($y = $this->getMinY(); $y <= $this->getMaxY(); $y++) {
+                $pos = new Point2D($x, $y);
+                if (($x + $y) % 2 !== $mod || !isset($tiles[(string) $pos])) {
+                    continue;
+                }
+
+                if ($tiles[(string) $pos] < $maxSteps) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param array<string, int> $tiles
+     */
+    private function needScaleOnY(int $maxSteps, array $tiles, bool $isEvenSteps): bool
+    {
+        $mod = $isEvenSteps ? 0 : 1;
+
+        foreach ([$this->getMinY(), $this->getMaxY()] as $y) {
+            for ($x =  $this->getMinX(); $x <= $this->getMaxX(); $x++) {
+                $pos = new Point2D($x, $y);
+                if (($x + $y) % 2 !== $mod || !isset($tiles[(string) $pos])) {
+                    continue;
+                }
+
+                $pos = new Point2D($x, $y);
+                if ($tiles[(string) $pos] < $maxSteps) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
